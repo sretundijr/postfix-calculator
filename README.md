@@ -1,3 +1,3 @@
-Rating widget
+Image Gallery
 
 webpack dev server setup
