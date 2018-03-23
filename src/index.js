@@ -65,7 +65,7 @@ const keypadEvent = (Calculator) => {
 // collect input as infix notation
 // convert to postfix/rpn notation
 // perform calculations and return a value
-class Calculator {
+class CalculatorState {
   constructor() {
     this.state = {
       input: [],
@@ -100,7 +100,7 @@ class Calculator {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const Calc = new Calculator();
+  const Calc = new CalculatorState();
   renderKeyPad();
   renderScreen();
   keypadEvent(Calc);
