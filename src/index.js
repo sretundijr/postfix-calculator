@@ -9,15 +9,16 @@ const keyPadMarkup = (value) => {
   );
 };
 
-const screenMarkup = (value) => {
+const screenMarkup = (value = '') => {
   return (
     `<h4 class="input-screen">${value}</h4>`
   );
 };
 
-const renderScreen = (value = '') => {
+const renderScreen = (html = '') => {
   const inputContainer = document.getElementById('input-container');
-  inputContainer.innerHTML = screenMarkup(value);
+  console.log(html);
+  inputContainer.innerHTML = html;
 };
 
 const generateKeyPad = () => {
@@ -50,12 +51,16 @@ const keypadEvent = (Calculator) => {
     if (keypadInput) {
       if (keypadInput === 'C') {
         Calculator.clearInput();
-        renderScreen(Calculator.getInput());
+        renderScreen(screenMarkup(Calculator.getInput()));
       } else if (keypadInput === '=') {
         Calculator.setPostfixConversion();
+        const uiScreenHtml = Calculator.buildListForUiScreens().map((item) => {
+          return screenMarkup(item);
+        })
+        renderScreen(uiScreenHtml.join(''));
       } else {
         Calculator.setInput(keypadInput);
-        renderScreen(Calculator.getInput());
+        renderScreen(screenMarkup(Calculator.getInput()));
       }
     }
   });
@@ -69,7 +74,8 @@ class CalculatorState {
   constructor() {
     this.state = {
       input: '',
-      postfixConversion: []
+      postfixConversion: [],
+      result: '',
     }
   }
 
@@ -100,7 +106,11 @@ class CalculatorState {
     const Eval = new EvalPostfix();
     const mathIsGood = Eval.returnResults(this.state.postfixConversion);
     console.log(mathIsGood);
+    this.state.result = mathIsGood;
+  }
 
+  buildListForUiScreens() {
+    return [this.state.input, this.state.postfixConversion.join(''), this.state.result];
   }
 
   isInputNumber(input) {
@@ -120,28 +130,8 @@ class CalculatorState {
 document.addEventListener('DOMContentLoaded', () => {
   const Calc = new CalculatorState();
   renderKeyPad();
-  renderScreen();
+  renderScreen(screenMarkup());
   keypadEvent(Calc);
-
-  // add test framework to eliminate this 
-  const mockData = '13+20';
-  // const mockData2 = '2+3*4/6-6';
-  // const mockData2 = '(2+3)*4/6-6';
-  // const mockData2 = '2+4*5-4/2';
-  const mockData2 = '2+4*(5-4)/2';
-  // const mockData2 = '2^2+2-2';
-  // const mockData2 = '2^2^2';
-
-
-  // const ConvertToPostfix = new InfixToPostfix(mockData2);
-  // const postfixList = ConvertToPostfix.returnPostfixList();
-
-  // console.log(ConvertToPostfix.returnPostfixList())
-
-  // const Eval = new EvalPostfix();
-  // const mathIsGood = Eval.returnResults(postfixList);
-
-  // console.log(mathIsGood);
 
 })
 
