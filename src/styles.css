@@ -1,0 +1,40 @@
+
+.main-container {
+  margin-top: 200px;  
+}
+
+.input-container-style {
+  border: 2px solid black;
+  width: 120px;
+  margin: 0 auto;
+}
+
+.input-screen {
+  text-align: left;
+}
+
+.keypad-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30px auto 0 auto;
+  width: 120px;
+  height: 120px;
+}
+
+.operation-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.number-btn {
+  width: 40px;
+  height: 20px;
+  margin-top: 10px;
+}
+
+.operation-btn {
+  width: 40px;
+  height: 20px;
+  margin-top: 10px;
+}
