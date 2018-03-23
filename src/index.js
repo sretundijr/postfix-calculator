@@ -62,7 +62,6 @@ const keypadEvent = (Calculator) => {
 // collect input as infix notation
 // convert to postfix/rpn notation
 // perform calculations and return a value
-// and scaling after first implementing the data structure
 class Calculator {
   constructor() {
     this.state = {
@@ -176,12 +175,10 @@ class InfixToPostfix {
         }
       }
     });
-    // console.log(operatorList, 'remaining operator stack');
-    // unloads the remaining operators
+    // unloads the remaining operators when there is no numbers remaining in the list
     while (operatorList.length > 0) {
       this.state.postfixList.push(operatorList.pop());
     }
-    // console.log(this.state.postfixList.filter(item => item != '('));
     return this.state.postfixList.filter(item => item != '(');
   }
 }
@@ -225,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderScreen();
   keypadEvent(Calc);
 
+  // add test framework to eliminate this 
   const mockData = '13+20';
   // const mockData2 = '2+3*4/6-6';
   // const mockData2 = '(2+3)*4/6-6';

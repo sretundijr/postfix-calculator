@@ -4,4 +4,7 @@ performs the calculation.
 
 Currently supports *, +, -, /, (, ),
 
-Next step is to add support for exponents using ^
+Next step for infix to postfix is to add support for exponents using ^
+
+next step for project is to add error handling and a test framework
+
