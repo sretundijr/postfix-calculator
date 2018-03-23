@@ -47,11 +47,11 @@ export default class InfixToPostfix {
 
         const currentIndex = operatorList.length - 1;
         const operatorObj = this.state.operator;
-        let currentItemPrecedence = '';
-        let previousItemPrecedence = '';
+        let currentItem = '';
+        let previousItem = '';
         if (operatorObj[operatorList[currentIndex]] && operatorObj[item]) {
-          previousItemPrecedence = operatorObj[operatorList[currentIndex]].precedence;
-          currentItemPrecedence = operatorObj[item].precedence;
+          previousItem = operatorObj[operatorList[currentIndex]];
+          currentItem = operatorObj[item];
         }
 
         // first if statement evals to true if there is not an item in operator stack
@@ -65,12 +65,15 @@ export default class InfixToPostfix {
           while (operatorList.length > 0 || operatorList[currentIndex] === '(') {
             this.state.postfixList.push(operatorList.pop());
           }
-        } else if (previousItemPrecedence) {
+        } else if (previousItem.precedence) {
           // add associativity here for exponent
-          if (currentItemPrecedence <= previousItemPrecedence) {
+          if (currentItem.precedence <= previousItem.precedence && currentItem.associativity !== 'right') {
             this.state.postfixList.push(operatorList.pop());
             operatorList.push(item);
-          } else {
+          } else if (previousItem.associativity === 'right' && currentItem.associativity === 'right') {
+            operatorList.push(item);
+          }
+          else {
             operatorList.push(item);
           }
         }

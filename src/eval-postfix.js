@@ -20,6 +20,8 @@ export default class EvalPostfix {
           results = operand2 - operand1;
         } else if (item === '/') {
           results = operand2 / operand1;
+        } else if (item === '^') {
+          results = Math.pow(operand2, operand1);
         } else {
           results = operand2 * operand1;
         }

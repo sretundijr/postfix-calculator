@@ -17,7 +17,6 @@ const screenMarkup = (value = '') => {
 
 const renderScreen = (html = '') => {
   const inputContainer = document.getElementById('input-container');
-  console.log(html);
   inputContainer.innerHTML = html;
 };
 
@@ -94,7 +93,6 @@ class CalculatorState {
   setPostfixConversion() {
     const ConvertToPostfix = new InfixToPostfix(this.state.input);
     this.state.postfixConversion = ConvertToPostfix.returnPostfixList();
-    console.log(this.state.postfixConversion);
     this.performPostfixCalculation();
   }
 
@@ -105,7 +103,6 @@ class CalculatorState {
   performPostfixCalculation() {
     const Eval = new EvalPostfix();
     const mathIsGood = Eval.returnResults(this.state.postfixConversion);
-    console.log(mathIsGood);
     this.state.result = mathIsGood;
   }
 
@@ -120,11 +117,6 @@ class CalculatorState {
     };
     return true;
   }
-
-  // determineScale() {
-  //   const decimalIndex = this.state.input.indexOf('.');
-  //   console.log(decimalIndex);
-  // }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
