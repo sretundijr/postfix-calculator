@@ -52,7 +52,7 @@ const keypadEvent = (Calculator) => {
         Calculator.clearInput();
         renderScreen(Calculator.getInput());
       } else if (keypadInput === '=') {
-
+        Calculator.setPostfixConversion();
       } else {
         Calculator.setInput(keypadInput);
         renderScreen(Calculator.getInput());
@@ -68,13 +68,13 @@ const keypadEvent = (Calculator) => {
 class CalculatorState {
   constructor() {
     this.state = {
-      input: [],
-
+      input: '',
+      postfixConversion: []
     }
   }
 
   setInput(input) {
-    this.state.input.push(input);
+    this.state.input += input;
   }
 
   getInput() {
@@ -82,7 +82,25 @@ class CalculatorState {
   }
 
   clearInput() {
-    this.state.input = '';
+    this.state.input = [];
+  }
+
+  setPostfixConversion() {
+    const ConvertToPostfix = new InfixToPostfix(this.state.input);
+    this.state.postfixConversion = ConvertToPostfix.returnPostfixList();
+    console.log(this.state.postfixConversion);
+    this.performPostfixCalculation();
+  }
+
+  getPostfixConversion() {
+    return this.state.postfixConversion;
+  }
+
+  performPostfixCalculation() {
+    const Eval = new EvalPostfix();
+    const mathIsGood = Eval.returnResults(this.state.postfixConversion);
+    console.log(mathIsGood);
+
   }
 
   isInputNumber(input) {
@@ -115,15 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // const mockData2 = '2^2^2';
 
 
-  const ConvertToPostfix = new InfixToPostfix(mockData2);
-  const postfixList = ConvertToPostfix.returnPostfixList();
+  // const ConvertToPostfix = new InfixToPostfix(mockData2);
+  // const postfixList = ConvertToPostfix.returnPostfixList();
 
   // console.log(ConvertToPostfix.returnPostfixList())
 
-  const Eval = new EvalPostfix();
-  const mathIsGood = Eval.returnResults(postfixList);
+  // const Eval = new EvalPostfix();
+  // const mathIsGood = Eval.returnResults(postfixList);
 
-  console.log(mathIsGood);
+  // console.log(mathIsGood);
 
 })
 
