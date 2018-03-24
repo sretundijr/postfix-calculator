@@ -35,11 +35,10 @@ export default class InfixToPostfix {
     return newList.filter(item => item);
   }
 
-  // add clause for exponent refactor
   returnPostfixList() {
     const preparedList = this.prepareList(this.state.infixList);
     const operatorList = [];
-    preparedList.forEach((item, index) => {
+    preparedList.forEach((item) => {
       const parsedItem = parseFloat(item);
       if (!isNaN(parsedItem)) {
         this.state.postfixList.push(parsedItem);
@@ -54,12 +53,14 @@ export default class InfixToPostfix {
           currentItem = operatorObj[item];
         }
 
+
+        // test that calculated correctly but may not be in correct postfix notation ?
+        // '1+2+3^2'
+
         // first if statement evals to true if there is not an item in operator stack
         // with precedence, this means the current popable item in operator stack is
         // either ( or none
-        if (!operatorObj[operatorList[currentIndex]]) {
-          operatorList.push(item);
-        } else if (item === '(') {
+        if (!operatorObj[operatorList[currentIndex]] || item === '(') {
           operatorList.push(item);
         } else if (item === ")") {
           while (operatorList.length > 0 || operatorList[currentIndex] === '(') {
@@ -71,8 +72,7 @@ export default class InfixToPostfix {
             operatorList.push(item);
           } else if (previousItem.associativity === 'right' && currentItem.associativity === 'right') {
             operatorList.push(item);
-          }
-          else {
+          } else {
             operatorList.push(item);
           }
         }

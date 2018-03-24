@@ -1,4 +1,5 @@
-// evalulates a postfix equation required format [numbers are of type Number, operators are of type string]
+// evalulates a postfix equation required format is an array
+// of mixed types [12, '+', 2]
 export default class EvalPostfix {
   constructor() {
     this.state = {
