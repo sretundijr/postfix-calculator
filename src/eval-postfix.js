@@ -1,4 +1,4 @@
-// evalulates a postfix equation required format [type Number, string Operators]
+// evalulates a postfix equation required format [numbers are of type Number, operators are of type string]
 export default class EvalPostfix {
   constructor() {
     this.state = {

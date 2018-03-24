@@ -66,7 +66,6 @@ export default class InfixToPostfix {
             this.state.postfixList.push(operatorList.pop());
           }
         } else if (previousItem.precedence) {
-          // add associativity here for exponent
           if (currentItem.precedence <= previousItem.precedence && currentItem.associativity !== 'right') {
             this.state.postfixList.push(operatorList.pop());
             operatorList.push(item);
