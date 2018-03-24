@@ -34,6 +34,17 @@
   height: 180px;
 }
 
+.equal-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.equal-btn {
+  width: 180px;
+  height: 30px;
+  margin-top: 10px;
+}
+
 .operation-btn-container {
   display: flex;
   justify-content: center;
