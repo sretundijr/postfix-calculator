@@ -41,7 +41,6 @@ const renderKeyPad = () => {
   keypadContainer.innerHTML = generateKeyPad();
 }
 
-// change key pad events for rpn
 const keypadEvent = (Calculator) => {
   const keypadElement = document.getElementById('event-delegate');
   keypadElement.addEventListener('click', (e) => {
@@ -65,10 +64,9 @@ const keypadEvent = (Calculator) => {
   });
 };
 
-// use reverse polish notation
-// collect input as infix notation
-// convert to postfix/rpn notation
-// perform calculations and return a value
+// todo add state management change when user finish calculation 
+// then presses another number before clearing old
+// add error handling
 class CalculatorState {
   constructor() {
     this.state = {
@@ -78,8 +76,19 @@ class CalculatorState {
     }
   }
 
+  // todo refactor??
   setInput(input) {
-    this.state.input += input;
+    if (!this.state.result) {
+      this.state.input += input;
+    } else {
+      if (!isNaN(parseFloat(input))) {
+        this.clearInput();
+        this.state.input = input;
+      } else {
+        this.state.input = this.state.result + input;
+        this.state.result = '';
+      }
+    }
   }
 
   getInput() {
@@ -87,7 +96,8 @@ class CalculatorState {
   }
 
   clearInput() {
-    this.state.input = [];
+    this.state.input = '';
+    this.state.result = '';
   }
 
   setPostfixConversion() {
@@ -107,15 +117,7 @@ class CalculatorState {
   }
 
   buildListForUiScreens() {
-    return [this.state.input, this.state.postfixConversion.join(''), this.state.result];
-  }
-
-  isInputNumber(input) {
-    const parsed = parseInt(input);
-    if (parsed === "NaN") {
-      return false;
-    };
-    return true;
+    return [this.state.input, this.state.postfixConversion.join(' '), this.state.result];
   }
 };
 
@@ -124,6 +126,5 @@ document.addEventListener('DOMContentLoaded', () => {
   renderKeyPad();
   renderScreen(screenMarkup());
   keypadEvent(Calc);
-
-})
+});
 
