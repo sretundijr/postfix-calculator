@@ -70,8 +70,6 @@ export default class InfixToPostfix {
           if (currentItem.precedence <= previousItem.precedence && currentItem.associativity !== 'right') {
             this.state.postfixList.push(operatorList.pop());
             operatorList.push(item);
-          } else if (previousItem.associativity === 'right' && currentItem.associativity === 'right') {
-            operatorList.push(item);
           } else {
             operatorList.push(item);
           }
