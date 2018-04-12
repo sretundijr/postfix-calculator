@@ -12,14 +12,23 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  /* align-items: center; */
   flex-wrap: wrap;
   width: 60vw;
 }
 
+.input-element-container{
+  width: 30%;    
+}
+
+.screen-header {
+  text-align: center;
+}
+
 .input-screen {
   border: 2px solid black;
+  border-radius: 5px;
   margin: 10px;  
-  width: 30%;  
   height: 40px;
   text-align: center;
   padding-top: 14px;
@@ -30,7 +39,7 @@
   display: flex;
   flex-wrap: wrap;
   margin: 30px auto 0 auto;
-  width: 180px;
+  width: 210px;
   height: 180px;
 }
 
@@ -40,9 +49,10 @@
 }
 
 .equal-btn {
-  width: 180px;
+  width: 200px;
   height: 30px;
-  margin-top: 10px;
+  margin: 10px 5px 0 5px;
+  border-bottom: 2px solid black;    
 }
 
 .operation-btn-container {
@@ -54,17 +64,22 @@
 .number-btn {
   width: 60px;
   height: 30px;
-  margin-top: 10px;
+  margin: 10px 5px 0 5px;  
+  
+  border-bottom: 2px solid black;    
 }
 
 .operation-btn {
   width: 80px;
   height: 40px;
   margin: 20px;
+  border-bottom: 2px solid black;    
 }
 
 /* button defaults */
 button{
   font-size: 20px;
   cursor: pointer;
+  border-radius: 5px;
+  outline: none;
 }
