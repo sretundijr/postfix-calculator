@@ -5,7 +5,7 @@ import EvalPostfix from './eval-postfix';
 
 const keyPadMarkup = (value) => {
   return (
-    `<button class="number-btn" value="${value}">${value}</button>`
+    `<button class="number-btn animate-btn" value="${value}">${value}</button>`
   );
 };
 

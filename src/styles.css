@@ -4,21 +4,27 @@
 }
 
 .main-container {
-  margin-top: 100px;  
+  background-color: rgb(175, 171, 170);
+  box-shadow: 3px 3px black;    
+  width: 30vw;
+  margin: 0 auto 0 auto;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .input-container-style {
   margin: 0 auto;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  /* align-items: center; */
+  flex-direction: column;
+  align-items: center;
   flex-wrap: wrap;
-  width: 60vw;
+  width: 100%;
 }
 
 .input-element-container{
-  width: 30%;    
+  width: 100%;    
 }
 
 .screen-header {
@@ -27,6 +33,7 @@
 
 .input-screen {
   border: 2px solid black;
+  box-shadow: 2px 3px rgb(47, 46, 44);  
   border-radius: 5px;
   margin: 10px;  
   height: 40px;
@@ -39,7 +46,7 @@
   display: flex;
   flex-wrap: wrap;
   margin: 30px auto 0 auto;
-  width: 210px;
+  width: 270px;
   height: 180px;
 }
 
@@ -49,37 +56,53 @@
 }
 
 .equal-btn {
-  width: 200px;
+  position: relative;
+  width: 270px;
   height: 30px;
   margin: 10px 5px 0 5px;
-  border-bottom: 2px solid black;    
+  box-shadow: 0 3px rgb(47, 46, 44);
 }
 
 .operation-btn-container {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
 }
 
 .number-btn {
-  width: 60px;
+  position: relative;  
+  width: 80px;
   height: 30px;
   margin: 10px 5px 0 5px;  
-  
-  border-bottom: 2px solid black;    
+  box-shadow: 0 3px rgb(47, 46, 44);
+}
+
+.animate-btn:hover{
+  top: 2px;
+  box-shadow: 0 2px rgb(47, 46, 44);
+}
+
+.animate-btn:active{
+  top: 4px;
+  box-shadow: 0 2px rgb(47, 46, 44);
 }
 
 .operation-btn {
-  width: 80px;
+  color: black;
+  position: relative;
+  width: 60px;
   height: 40px;
   margin: 20px;
-  border-bottom: 2px solid black;    
+  box-shadow: 0 3px rgb(47, 46, 44);
+  background-color: rgb(243, 243, 236)
 }
 
 /* button defaults */
 button{
+  color: white;
+  background-color: rgb(127, 126, 124);
   font-size: 20px;
   cursor: pointer;
   border-radius: 5px;
   outline: none;
+  border: none;
 }
