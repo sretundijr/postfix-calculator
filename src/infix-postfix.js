@@ -1,3 +1,7 @@
+
+// infix to postfix using shunting yard. Returns postfix notation in correct data types
+// performs conversion by comparing data attributes allowing for additional operations
+// to be added later by assigning each new operator precedence
 // todo check constructor syntax
 export default class InfixToPostfix {
   constructor(infixList) {
@@ -43,31 +47,32 @@ export default class InfixToPostfix {
       if (!isNaN(parsedItem)) {
         this.state.postfixList.push(parsedItem);
       } else {
-
         const currentIndex = operatorList.length - 1;
         const operatorObj = this.state.operator;
+        const previousItemIsUndefined = operatorObj[operatorList[currentIndex]];
         let currentItem = '';
         let previousItem = '';
+        // refactor previous item here
         if (operatorObj[operatorList[currentIndex]] && operatorObj[item]) {
           previousItem = operatorObj[operatorList[currentIndex]];
           currentItem = operatorObj[item];
         }
 
-
-        // test that calculated correctly but may not be in correct postfix notation ?
-        // '1+2+3^2'
-
-        // first if statement evals to true if there is not an item in operator stack
-        // with precedence, this means the current popable item in operator stack is
-        // either ( or none
-        if (!operatorObj[operatorList[currentIndex]] || item === '(') {
+        // tested wrong 1+2*3+4*(1+2) but fixed when 
+        // refactored to this !operatorObj[operatorList[currentIndex]]
+        // if previous item is a paranthesis or stack length is 0 it will eval to true (!undefined)
+        // this allows for the collection of the operator that follows an opening paranthesis
+        // but also allows for the collection of a paranthesis if current item
+        if (!previousItemIsUndefined || item === '(') {
           operatorList.push(item);
         } else if (item === ")") {
+          // remove second statement in OR
           while (operatorList.length > 0 || operatorList[currentIndex] === '(') {
             this.state.postfixList.push(operatorList.pop());
           }
         } else if (previousItem.precedence) {
-          if (currentItem.precedence <= previousItem.precedence && currentItem.associativity !== 'right') {
+          if (currentItem.precedence <= previousItem.precedence &&
+            currentItem.associativity !== 'right') {
             this.state.postfixList.push(operatorList.pop());
             operatorList.push(item);
           } else {
