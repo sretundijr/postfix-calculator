@@ -9,9 +9,14 @@ const keyPadMarkup = (value) => {
   );
 };
 
-const screenMarkup = (value = '') => {
+const screenMarkup = (value) => {
   return (
-    `<h4 class="input-screen">${value}</h4>`
+    `
+    <span class="input-element-container">
+    <h4 class="screen-header">${Object.keys(value)}</h4>
+     <h4 class="input-screen">${Object.values(value)}</h4>
+    </span>
+    `
   );
 };
 
@@ -49,20 +54,29 @@ const keypadEvent = (Calculator) => {
     if (keypadInput) {
       if (keypadInput === 'C') {
         Calculator.clearInput();
-        renderScreen(screenMarkup(Calculator.getInput()));
       } else if (keypadInput === '=') {
         Calculator.setPostfixConversion();
-        const uiScreenHtml = Calculator.buildListForUiScreens().map((item) => {
-          return screenMarkup(item);
-        })
-        renderScreen(uiScreenHtml.join(''));
       } else {
         Calculator.setInput(keypadInput);
-        renderScreen(screenMarkup(Calculator.getInput()));
       }
+      buildScreenUi(Calculator.buildListForUiScreens());
     }
   });
 };
+
+const buildScreenUi = (calcState) => {
+  let uiScreenHtml = '';
+  for (const key in calcState) {
+    if (calcState.hasOwnProperty(key)) {
+      const element = {};
+      element[key] = calcState[key];
+      uiScreenHtml += screenMarkup(element);
+    }
+  }
+  renderScreen(uiScreenHtml);
+}
+
+const returnCalculaterScreenItems = (screenArray) => screenArray.map(item => item);
 
 // todo add state management change when user finish calculation 
 // then presses another number before clearing old
@@ -76,7 +90,6 @@ class CalculatorState {
     }
   }
 
-  // todo refactor??
   setInput(input) {
     if (!this.state.result) {
       this.state.input += input;
@@ -91,23 +104,16 @@ class CalculatorState {
     }
   }
 
-  getInput() {
-    return this.state.input;
-  }
-
   clearInput() {
     this.state.input = '';
     this.state.result = '';
+    this.state.postfixConversion = [];
   }
 
   setPostfixConversion() {
     const ConvertToPostfix = new InfixToPostfix(this.state.input);
     this.state.postfixConversion = ConvertToPostfix.returnPostfixList();
     this.performPostfixCalculation();
-  }
-
-  getPostfixConversion() {
-    return this.state.postfixConversion;
   }
 
   performPostfixCalculation() {
@@ -117,14 +123,19 @@ class CalculatorState {
   }
 
   buildListForUiScreens() {
-    return [this.state.input, this.state.postfixConversion.join(' '), this.state.result];
+    const screenObj = {
+      Infix: this.state.input,
+      Postfix: this.state.postfixConversion.join(" "),
+      Results: this.state.result,
+    }
+    return screenObj;
   }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   const Calc = new CalculatorState();
   renderKeyPad();
-  renderScreen(screenMarkup());
+  buildScreenUi(Calc.buildListForUiScreens());
   keypadEvent(Calc);
 });
 
