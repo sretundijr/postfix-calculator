@@ -32,6 +32,7 @@ export default class InfixToPostfix {
       }
     };
   };
+  // todo fix for negative numbers
   prepareList() {
     const newList = this.state.infixList
       .replace(/\s+/g, "")
