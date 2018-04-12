@@ -20,6 +20,7 @@ const screenMarkup = (value) => {
   );
 };
 
+// todo fix decimal button press when entering a new calculation in
 const renderScreen = (html = '') => {
   const inputContainer = document.getElementById('input-container');
   inputContainer.innerHTML = html;
@@ -78,9 +79,9 @@ const buildScreenUi = (calcState) => {
 
 const returnCalculaterScreenItems = (screenArray) => screenArray.map(item => item);
 
-// todo add state management change when user finish calculation 
-// then presses another number before clearing old
+// todo add decimal button handling when user enters a new calculation
 // add error handling
+// negative numbers are handled incorrectly
 class CalculatorState {
   constructor() {
     this.state = {
