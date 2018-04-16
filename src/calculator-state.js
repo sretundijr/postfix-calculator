@@ -36,10 +36,10 @@ export default class CalculatorState {
         return false;
       }
       // todo this needs work
-      // if (input === '-' && this.state.input.match(/[-]/g) && this.state.input.match(/[\d]/g).length < this.state.input.match(/[-]/g).length) {
-      //   console.log('here');
-      //   return false;
-      // }
+      if (input === '-' && this.state.input.match(/[-]/g) && this.state.input.match(/[\d]/g).length < this.state.input.match(/[-]/g).length) {
+        console.log('here');
+        return false;
+      }
     }
     return true;
   }
