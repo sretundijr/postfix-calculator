@@ -19,12 +19,6 @@ const screenMarkup = (value) => {
   );
 };
 
-// todo fix decimal button press when entering a new calculation in
-const renderScreen = (html = '') => {
-  const inputContainer = document.getElementById('input-container');
-  inputContainer.innerHTML = html;
-};
-
 const generateKeyPad = () => {
   let buttonArray = [];
   for (let i = 1; i <= 12; i++) {
@@ -46,6 +40,24 @@ const renderKeyPad = () => {
   keypadContainer.innerHTML = generateKeyPad();
 }
 
+// todo fix decimal button press when entering a new calculation in
+const renderScreen = (html = '') => {
+  const inputContainer = document.getElementById('input-container');
+  inputContainer.innerHTML = html;
+};
+
+const buildScreenUi = (calcState) => {
+  let uiScreenHtml = '';
+  for (const key in calcState) {
+    if (calcState.hasOwnProperty(key)) {
+      const element = {};
+      element[key] = calcState[key];
+      uiScreenHtml += screenMarkup(element);
+    }
+  }
+  renderScreen(uiScreenHtml);
+}
+
 const keypadEvent = (Calculator) => {
   const keypadElement = document.getElementById('event-delegate');
   keypadElement.addEventListener('click', (e) => {
@@ -63,20 +75,6 @@ const keypadEvent = (Calculator) => {
     }
   });
 };
-
-const buildScreenUi = (calcState) => {
-  let uiScreenHtml = '';
-  for (const key in calcState) {
-    if (calcState.hasOwnProperty(key)) {
-      const element = {};
-      element[key] = calcState[key];
-      uiScreenHtml += screenMarkup(element);
-    }
-  }
-  renderScreen(uiScreenHtml);
-}
-
-const returnCalculaterScreenItems = (screenArray) => screenArray.map(item => item);
 
 document.addEventListener('DOMContentLoaded', () => {
   const Calc = new CalculatorState();
