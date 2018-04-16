@@ -24,6 +24,7 @@ export default class CalculatorState {
     }
   }
 
+  // todo work on validation in combination with validation occuring infix-postfix
   validateUserInput(input) {
     console.log(this.state.input.match(/[-]/g))
     console.log(this.state.input.match(/[\d]/g))

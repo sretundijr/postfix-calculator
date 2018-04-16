@@ -32,7 +32,8 @@ export default class InfixToPostfix {
       }
     };
   };
-  // todo fix for negative numbers
+  // todo fix for negative numbers return an invalid list here
+  // check for invalid list and produce error message
   prepareList() {
     const newList = this.state.infixList
       .split(/([\+\-\*\/\^\(\)])/)
