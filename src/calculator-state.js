@@ -75,7 +75,7 @@ export default class CalculatorState {
     this.state.result = !isNaN(mathIsGood) ? mathIsGood : 'Invalid Expression';
   }
 
-  buildListForUiScreens() {
+  buildObjectForScreens() {
     const screenObj = {
       Infix: this.state.input,
       Postfix: this.state.postfixConversion.join(" "),

@@ -71,7 +71,7 @@ const keypadEvent = (Calculator) => {
       } else {
         Calculator.setInput(keypadInput);
       }
-      buildScreenUi(Calculator.buildListForUiScreens());
+      buildScreenUi(Calculator.buildObjectForScreens());
     }
   });
 };
@@ -79,7 +79,7 @@ const keypadEvent = (Calculator) => {
 document.addEventListener('DOMContentLoaded', () => {
   const Calc = new CalculatorState();
   renderKeyPad();
-  buildScreenUi(Calc.buildListForUiScreens());
+  buildScreenUi(Calc.buildObjectForScreens());
   keypadEvent(Calc);
 });
 
