@@ -38,12 +38,11 @@ export default class InfixToPostfix {
       .split(/([\+\-\*\/\^\(\)])/)
       .filter(item => item);
 
-    const listContainingNegativeNums = [];
-
     if (newList.length % 2 > 0) {
       return newList;
     } else {
       // contains negative numbers
+      const listContainingNegativeNums = [];
       let negativeNumIndex = -1;
 
       newList.forEach((item, index) => {
