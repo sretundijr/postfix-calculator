@@ -66,6 +66,7 @@ export default class InfixToPostfix {
     }
   }
 
+  // todo refactor noted areas and repition
   returnPostfixList() {
     const preparedList = this.prepareList(this.state.infixList);
     const operatorList = [];
@@ -95,6 +96,7 @@ export default class InfixToPostfix {
         } else if (item === ")") {
           // remove second statement in OR
           while (operatorList.length > 0 || operatorList[currentIndex] === '(') {
+            // remove ( here before push and remove the filter at the end
             this.state.postfixList.push(operatorList.pop());
           }
         } else if (previousItem.precedence) {
