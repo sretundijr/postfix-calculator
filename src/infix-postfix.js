@@ -35,9 +35,35 @@ export default class InfixToPostfix {
   // todo fix for negative numbers
   prepareList() {
     const newList = this.state.infixList
-      .replace(/\s+/g, "")
       .split(/([\+\-\*\/\^\(\)])/)
-    return newList.filter(item => item);
+      .filter(item => item);
+
+    const listContainingNegativeNums = [];
+
+    if (newList.length % 2 > 0) {
+      return newList;
+    } else {
+      // contains negative numbers
+      let negativeNumIndex = -1;
+
+      newList.forEach((item, index) => {
+        if (isNaN(item)) {
+          if (isNaN(listContainingNegativeNums[listContainingNegativeNums.length - 1])) {
+            negativeNumIndex = index + 1;
+          } else {
+            listContainingNegativeNums.push(item);
+          }
+        } else {
+          if (negativeNumIndex === index) {
+            listContainingNegativeNums.push(`-${item}`);
+          } else {
+            listContainingNegativeNums.push(item);
+          }
+        }
+      });
+      console.log(listContainingNegativeNums, 'list with negatives');
+      return listContainingNegativeNums;
+    }
   }
 
   returnPostfixList() {
