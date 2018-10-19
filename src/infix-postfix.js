@@ -43,11 +43,18 @@ export default class InfixToPostfix {
       return newList;
     } else {
       // contains negative numbers
+      // todo incorrect parsing with negative numbers after validation 1+2*3*(4+-2)
+      // it appears that I am incrementing the negative number index incorrectly
+      // may need to find another approach.  Problem occurs when parsing a symbol and a paranthesis or
+      // two symbols in a row(??)
+      // fixed but needs more testing update on 8-26-18
+
+      // this needs a better name
       const listContainingNegativeNums = [];
       let negativeNumIndex = -1;
 
       newList.forEach((item, index) => {
-        if (isNaN(item)) {
+        if (isNaN(item) && item === '-') {
           if (isNaN(listContainingNegativeNums[listContainingNegativeNums.length - 1])) {
             negativeNumIndex = index + 1;
           } else {

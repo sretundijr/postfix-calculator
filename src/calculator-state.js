@@ -1,47 +1,34 @@
 
 import EvalPostfix from './eval-postfix';
 import InfixToPostfix from './infix-postfix';
+import ValidateUserInput from './validateUserInput';
 
 // todo add decimal button handling when user enters a new calculation
+// update 8-23-18 i think this works^^
 // add error handling
-// negative numbers are handled incorrectly
+// negative numbers are handled incorrectly, update 8-23-18, I cant remember why this was
+// add keyboard events
 export default class CalculatorState {
   constructor() {
     this.state = {
       input: '',
       postfixConversion: [],
       result: '',
+      ValidateInput: new ValidateUserInput()
     }
   }
 
   setInput(input) {
     if (!this.state.result) {
-      if (this.validateUserInput(input)) {
+      if (this.state.ValidateInput.validateInput(input)) {
         this.state.input += input;
+      } else {
+        // do something here if the user has entered invalid input
+        console.log('invalid input');
       }
     } else {
       this.resetUiLogic(input);
     }
-  }
-
-  // todo work on validation in combination with validation occuring infix-postfix
-  validateUserInput(input) {
-    console.log(this.state.input.match(/[-]/g))
-    console.log(this.state.input.match(/[\d]/g))
-    if (this.state.input.length > 0) {
-      const inputLength = this.state.input.length;
-      const lastCharacter = this.state.input[inputLength - 1];
-      if (input.match(/[+\/*\(\)]/) && lastCharacter.match(/[+\/*\(\)]/)) {
-        console.log('invalid input');
-        return false;
-      }
-      // todo this needs work
-      if (input === '-' && this.state.input.match(/[-]/g) && this.state.input.match(/[\d]/g).length < this.state.input.match(/[-]/g).length) {
-        console.log('here');
-        return false;
-      }
-    }
-    return true;
   }
 
   resetUiLogic(input) {
@@ -61,6 +48,7 @@ export default class CalculatorState {
     this.state.input = '';
     this.state.result = '';
     this.state.postfixConversion = [];
+    this.state.ValidateInput = new ValidateUserInput();
   }
 
   setPostfixConversion() {
