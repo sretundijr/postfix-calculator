@@ -14,7 +14,6 @@ export default class EvalPostfix {
         const operand1 = this.state.resultsStack.pop();
         const operand2 = this.state.resultsStack.pop();
         let results = 0;
-        // temp till i get back to the internet
         if (item === '+') {
           results = operand2 + operand1;
         } else if (item === '-') {

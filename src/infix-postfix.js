@@ -2,7 +2,6 @@
 // infix to postfix using shunting yard. Returns postfix notation in correct data types
 // performs conversion by comparing data attributes allowing for additional operations
 // to be added later by assigning each new operator precedence
-// todo check constructor syntax
 export default class InfixToPostfix {
   constructor(infixList) {
     this.state = {
@@ -32,8 +31,7 @@ export default class InfixToPostfix {
       }
     };
   };
-  // todo fix for negative numbers return an invalid list here
-  // check for invalid list and produce error message
+
   prepareList() {
     const newList = this.state.infixList
       .split(/([\+\-\*\/\^\(\)])/)
@@ -42,14 +40,6 @@ export default class InfixToPostfix {
     if (newList.length % 2 > 0) {
       return newList;
     } else {
-      // contains negative numbers
-      // todo incorrect parsing with negative numbers after validation 1+2*3*(4+-2)
-      // it appears that I am incrementing the negative number index incorrectly
-      // may need to find another approach.  Problem occurs when parsing a symbol and a paranthesis or
-      // two symbols in a row(??)
-      // fixed but needs more testing update on 8-26-18
-
-      // this needs a better name
       const listContainingNegativeNums = [];
       let negativeNumIndex = -1;
 
@@ -73,7 +63,6 @@ export default class InfixToPostfix {
     }
   }
 
-  // todo refactor noted areas and repition
   returnPostfixList() {
     const preparedList = this.prepareList(this.state.infixList);
     const operatorList = [];
@@ -87,23 +76,14 @@ export default class InfixToPostfix {
         const previousItemIsUndefined = operatorObj[operatorList[currentIndex]];
         let currentItem = '';
         let previousItem = '';
-        // refactor previous item here
         if (operatorObj[operatorList[currentIndex]] && operatorObj[item]) {
           previousItem = operatorObj[operatorList[currentIndex]];
           currentItem = operatorObj[item];
         }
-
-        // tested wrong 1+2*3+4*(1+2) but fixed when 
-        // refactored to this !operatorObj[operatorList[currentIndex]]
-        // if previous item is a paranthesis or stack length is 0 it will eval to true (!undefined)
-        // this allows for the collection of the operator that follows an opening paranthesis
-        // but also allows for the collection of a paranthesis if current item
         if (!previousItemIsUndefined || item === '(') {
           operatorList.push(item);
         } else if (item === ")") {
-          // remove second statement in OR
           while (operatorList.length > 0 || operatorList[currentIndex] === '(') {
-            // remove ( here before push and remove the filter at the end
             this.state.postfixList.push(operatorList.pop());
           }
         } else if (previousItem.precedence) {
@@ -117,7 +97,6 @@ export default class InfixToPostfix {
         }
       }
     });
-    // unloads the remaining operators when there is no numbers remaining in the list
     while (operatorList.length > 0) {
       this.state.postfixList.push(operatorList.pop());
     }

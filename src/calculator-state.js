@@ -3,11 +3,6 @@ import EvalPostfix from './eval-postfix';
 import InfixToPostfix from './infix-postfix';
 import ValidateUserInput from './validateUserInput';
 
-// todo add decimal button handling when user enters a new calculation
-// update 8-23-18 i think this works^^
-// add error handling
-// negative numbers are handled incorrectly, update 8-23-18, I cant remember why this was
-// add keyboard events
 export default class CalculatorState {
   constructor() {
     this.state = {
@@ -23,7 +18,6 @@ export default class CalculatorState {
       if (this.state.ValidateInput.validateInput(input)) {
         this.state.input += input;
       } else {
-        // do something here if the user has entered invalid input
         console.log('invalid input');
       }
     } else {
@@ -32,8 +26,7 @@ export default class CalculatorState {
   }
 
   resetUiLogic(input) {
-    // this occurs at the end of the first evaluation, if the user enters a number, clear the input and start a new equation
-    // else the user has entered an operator deciding to use the previous result as part of a new equation
+
     if (!isNaN(parseFloat(input))) {
       this.clearInput();
       this.state.input = input;
