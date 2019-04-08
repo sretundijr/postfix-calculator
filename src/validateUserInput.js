@@ -11,8 +11,6 @@ export default class ValidateUserInput {
     }
   }
 
-  // mainly for keyboard inputs
-  // rename symbol to input                                                                                         
   getInputType(input) {
     if (input === '(') {
       return {
@@ -40,7 +38,6 @@ export default class ValidateUserInput {
       }
     } else {
       const symbolList = ['+', '-', '/', '*', '^'];
-      // is contains a js or immutable lib method replace with contains
       const isOperator = symbolList.find(symbol => symbol === input);
       if (isOperator) {
         return {
@@ -56,7 +53,6 @@ export default class ValidateUserInput {
     }
   }
 
-  // todo probably could use a refactor
   isValidInput(currentInput) {
     const previousInput = this.inputTypeList[this.inputTypeList.length - 1];
     if (previousInput) {
@@ -79,8 +75,6 @@ export default class ValidateUserInput {
       }
       return false;
     }
-
-    // always return true if first input
     return true;
   }
 
