@@ -40,7 +40,6 @@ const renderKeyPad = () => {
   keypadContainer.innerHTML = generateKeyPad();
 }
 
-// todo fix decimal button press when entering a new calculation in
 const renderScreen = (html = '') => {
   const inputContainer = document.getElementById('input-container');
   inputContainer.innerHTML = html;

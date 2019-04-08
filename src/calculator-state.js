@@ -1,52 +1,32 @@
 
 import EvalPostfix from './eval-postfix';
 import InfixToPostfix from './infix-postfix';
+import ValidateUserInput from './validateUserInput';
 
-// todo add decimal button handling when user enters a new calculation
-// add error handling
-// negative numbers are handled incorrectly
 export default class CalculatorState {
   constructor() {
     this.state = {
       input: '',
       postfixConversion: [],
       result: '',
+      ValidateInput: new ValidateUserInput()
     }
   }
 
   setInput(input) {
     if (!this.state.result) {
-      if (this.validateUserInput(input)) {
+      if (this.state.ValidateInput.validateInput(input)) {
         this.state.input += input;
+      } else {
+        console.log('invalid input');
       }
     } else {
       this.resetUiLogic(input);
     }
   }
 
-  // todo work on validation in combination with validation occuring infix-postfix
-  validateUserInput(input) {
-    console.log(this.state.input.match(/[-]/g))
-    console.log(this.state.input.match(/[\d]/g))
-    if (this.state.input.length > 0) {
-      const inputLength = this.state.input.length;
-      const lastCharacter = this.state.input[inputLength - 1];
-      if (input.match(/[+\/*\(\)]/) && lastCharacter.match(/[+\/*\(\)]/)) {
-        console.log('invalid input');
-        return false;
-      }
-      // todo this needs work
-      // if (input === '-' && this.state.input.match(/[-]/g) && this.state.input.match(/[\d]/g).length < this.state.input.match(/[-]/g).length) {
-      //   console.log('here');
-      //   return false;
-      // }
-    }
-    return true;
-  }
-
   resetUiLogic(input) {
-    // this occurs at the end of the first evaluation, if the user enters a number, clear the input and start a new equation
-    // else the user has entered an operator deciding to use the previous result as part of a new equation
+
     if (!isNaN(parseFloat(input))) {
       this.clearInput();
       this.state.input = input;
@@ -61,6 +41,7 @@ export default class CalculatorState {
     this.state.input = '';
     this.state.result = '';
     this.state.postfixConversion = [];
+    this.state.ValidateInput = new ValidateUserInput();
   }
 
   setPostfixConversion() {
